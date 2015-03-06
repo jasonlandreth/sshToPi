@@ -97,6 +97,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                     sshDialog();
                                 }
 
+                                SSHPiTask sshpiTask = new SSHPiTask();
+                                sshpiTask.execute();
 
                             }
                         })
@@ -133,8 +135,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     }
 
                     ChannelExec localChannelExec = (ChannelExec) localSession.openChannel("exec");
-                    localChannelExec.setCommand(cmd);
-                    localChannelExec.connect();
+                    if(cmd!= null) {
+                        localChannelExec.setCommand(cmd);
+                        localChannelExec.connect();
+                    }
                     BufferedReader input = new BufferedReader(new InputStreamReader(localChannelExec.getInputStream()));
                     StringBuilder localStringBuilder = new StringBuilder();
                     for (; ; ) {
