@@ -39,21 +39,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
         button=(Button)findViewById(R.id.btn);
         et = (EditText)findViewById(R.id.cmdtxt);
         commandList = (TextView)findViewById(R.id.sshtxt);
-        button=(Button)findViewById(R.id.btn);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View paramAnonymousView)
-            {
-                cmd = et.getText().toString();
-                sshconnection localsshconnection = new sshconnection();
-                localsshconnection.execute(cmd);
-                Log.i("EXECUTE", String.valueOf(localsshconnection));
-            }
-        });
+
+        findViewById(R.id.btn).setOnClickListener(new StartSSHListener());
+
         username ="pi";
         password ="raspberry";
         ip_address = "162.203.185.64";
         port = 22;
+    }
+
+    public class StartSSHListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            cmd = et.getText().toString();
+            SSHPiTask ssh_pi_connection = new SSHPiTask();
+            ssh_pi_connection.execute(cmd);
+            Log.i("EXECUTE", String.valueOf(ssh_pi_connection));
+
+        }
     }
 
 
@@ -63,13 +67,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
-        public class sshconnection extends AsyncTask<String, Void, String> {
+        public class SSHPiTask extends AsyncTask<String, Void, String> {
             boolean check;
-            BufferedReader input;
-            String re;
-
-
-
 
             protected String doInBackground(String... paramVarArgs) {
                 try {
@@ -83,10 +82,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     ChannelExec localChannelExec = (ChannelExec) localSession.openChannel("exec");
                     localChannelExec.setCommand(cmd);
                     localChannelExec.connect();
-                    BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(localChannelExec.getInputStream()));
+                    BufferedReader input = new BufferedReader(new InputStreamReader(localChannelExec.getInputStream()));
                     StringBuilder localStringBuilder = new StringBuilder();
                     for (; ; ) {
-                        String str = localBufferedReader.readLine();
+                        String str = input.readLine();
                         if (str == null) {
                             output = localStringBuilder.toString();
                             localChannelExec.disconnect();
@@ -102,9 +101,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 return output;
             }
-
-
-
 
             protected void onPostExecute(String paramString) {
                 commandList.setText(output);
