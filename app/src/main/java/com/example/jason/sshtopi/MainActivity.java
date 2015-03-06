@@ -11,11 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Properties;
@@ -28,6 +26,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     EditText et;
     String output;
     Button button;
+    String username;
+    String password;
+    String ip_address;
+    int port;
+    String host;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Log.i("EXECUTE", String.valueOf(localsshconnection));
             }
         });
+        username ="pi";
+        password ="raspberry";
+        ip_address = "162.203.185.64";
+        port = 22;
     }
 
 
@@ -66,8 +73,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             protected String doInBackground(String... paramVarArgs) {
                 try {
-                    Session localSession = new JSch().getSession("pi", "162.203.185.64", 22);
-                    localSession.setPassword("raspberry");
+                    Session localSession = new JSch().getSession(username, ip_address, port);
+                    localSession.setPassword(password);
                     Properties localProperties = new Properties();
                     localProperties.put("StrictHostKeyChecking", "no");
                     localSession.setConfig(localProperties);
