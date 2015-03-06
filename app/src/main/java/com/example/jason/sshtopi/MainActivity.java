@@ -79,7 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     localProperties.put("StrictHostKeyChecking", "no");
                     localSession.setConfig(localProperties);
                     localSession.connect();
-                    this.check = localSession.isConnected();
+                    check = localSession.isConnected();
                     ChannelExec localChannelExec = (ChannelExec) localSession.openChannel("exec");
                     localChannelExec.setCommand(cmd);
                     localChannelExec.connect();
@@ -104,7 +104,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             protected void onPostExecute(String paramString) {
                 commandList.setText(output);
-                Toast.makeText(getApplicationContext(), "Connected" + this.check, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Connected" + check, Toast.LENGTH_SHORT).show();
             }
 
         }
