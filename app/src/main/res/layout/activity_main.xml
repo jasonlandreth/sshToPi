@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80.0dip"
-        android:text=" "
-        android:layout_alignParentRight="true" />
+
+        android:layout_alignEnd="@+id/cmdtxt" />
 
     <Button
         android:id="@+id/btn"
@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22.0dip"
         android:ems="10"
+        android:hint="Enter Cmd"
         android:layout_alignParentRight="true">
         <requestFocus />
     </EditText>
