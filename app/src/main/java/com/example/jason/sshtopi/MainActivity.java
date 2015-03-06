@@ -68,8 +68,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             BufferedReader input;
             String re;
 
-            public sshconnection() {
-            }
+
 
 
             protected String doInBackground(String... paramVarArgs) {
@@ -104,16 +103,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 return output;
             }
 
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
 
-                commandList.setText(output);
 
-            }
 
             protected void onPostExecute(String paramString) {
-                //commandList.setText(output);
+                commandList.setText(output);
+                if(!check){
+                    et.setText(" ");
+                }
                 Toast.makeText(getApplicationContext(), "Connected: " + check, Toast.LENGTH_SHORT).show();
             }
 
