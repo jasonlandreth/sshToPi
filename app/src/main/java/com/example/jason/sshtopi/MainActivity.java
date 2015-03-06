@@ -71,6 +71,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public sshconnection() {
             }
 
+
             protected String doInBackground(String... paramVarArgs) {
                 try {
                     Session localSession = new JSch().getSession(username, ip_address, port);
@@ -99,12 +100,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 } catch (Exception localException) {
                     System.out.println(localException.getMessage());
                 }
+
                 return output;
             }
 
-            protected void onPostExecute(String paramString) {
+            @Override
+            protected void onProgressUpdate(Void... values) {
+                super.onProgressUpdate(values);
+
                 commandList.setText(output);
-                Toast.makeText(getApplicationContext(), "Connected" + check, Toast.LENGTH_SHORT).show();
+
+            }
+
+            protected void onPostExecute(String paramString) {
+                //commandList.setText(output);
+                Toast.makeText(getApplicationContext(), "Connected: " + check, Toast.LENGTH_SHORT).show();
             }
 
         }
