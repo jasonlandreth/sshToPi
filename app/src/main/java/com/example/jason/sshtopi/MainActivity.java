@@ -2,9 +2,7 @@ package com.example.jason.sshtopi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,8 +34,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     String password;
     String ip_address;
     int port;
-    String host;
-    String one, two, three, four;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,10 +126,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     localSession.setConfig(localProperties);
                     localSession.connect();
                     check = localSession.isConnected();
-                    if(!check){
-                        Toast.makeText(getApplicationContext(), "Connection was not established  \n Enter information again", Toast.LENGTH_SHORT).show();
-                        sshDialog();
-                    }
+
 
                     ChannelExec localChannelExec = (ChannelExec) localSession.openChannel("exec");
                     if(cmd!= null) {
@@ -164,6 +158,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(!check){
                     et.setText(" ");
 
+                        Toast.makeText(getApplicationContext(), "Connection was not established  \n Enter information again", Toast.LENGTH_SHORT).show();
+                        sshDialog();
                 }
                 Toast.makeText(getApplicationContext(), "Connected: " + check, Toast.LENGTH_SHORT).show();
             }

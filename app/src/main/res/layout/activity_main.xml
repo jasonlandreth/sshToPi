@@ -17,7 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="42.0dip"
-        android:text="Button"
+        android:text="Connect"
         android:layout_below="@id/sshtxt"
         android:layout_alignRight="@id/sshtxt" />
 
