@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button button;
     String username;
     String password;
-    String ip_address;
+    String host;
     int port;
 
 
@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             public void onClick(DialogInterface dialog, int id) {
                                 // get user input and set it to result
                                 username = userTxt.getText().toString();
-                                ip_address = ipTxt.getText().toString();
+                                host = ipTxt.getText().toString();
                                 password = passTxt.getText().toString();
 
                                 try {
@@ -119,7 +119,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             protected String doInBackground(String... paramVarArgs) {
                 try {
-                    Session localSession = new JSch().getSession(username, ip_address, port);
+                    Session localSession = new JSch().getSession(username, host, port);
                     localSession.setPassword(password);
                     Properties localProperties = new Properties();
                     localProperties.put("StrictHostKeyChecking", "no");
@@ -157,7 +157,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 commandList.setText(output);
                 if(!check){
                     et.setText(" ");
-
                         Toast.makeText(getApplicationContext(), "Connection was not established  \n Enter information again", Toast.LENGTH_SHORT).show();
                         sshDialog();
                 }
